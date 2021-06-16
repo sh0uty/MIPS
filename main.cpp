@@ -6,7 +6,7 @@
 #include "alu_control.h"
 #include "alu.h"
 #include "control.h"
-
+#include "data_memory.h"
 
 int sc_main(int argc, char* argv[]){
 /* //Shifter Test
@@ -179,7 +179,7 @@ int sc_main(int argc, char* argv[]){
     sc_start(1, SC_NS);
     cout << zero.read() << " and " << alu_result.read() << endl;*/
     
-    //Control test
+    /*//Control Test
     sc_signal<sc_lv<6>> opcode;
     sc_signal<sc_logic> reg_dest, jump, branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write;
     sc_signal<sc_lv<2>> alu_op;
@@ -201,8 +201,47 @@ int sc_main(int argc, char* argv[]){
 
     opcode = "111111";
     sc_start(1, SC_NS);
-    cout << reg_dest<<jump<<branch<<mem_read<<mem_to_reg<<mem_write<<alu_src<<reg_write<<":"<<alu_op << endl;
+    cout << reg_dest<<jump<<branch<<mem_read<<mem_to_reg<<mem_write<<alu_src<<reg_write<<":"<<alu_op << endl;*/
+
+    //Data Memory Test
+    sc_signal<sc_lv<32>> address, write_data;
+    sc_signal<sc_logic> MemWrite, MemRead;
+    sc_signal<bool> clock;
+    sc_signal<sc_lv<32>> read_data;
+
+    MIPS::data_memory *DataMemory = new MIPS::data_memory("DataMemory");
+    (*DataMemory)(address, write_data, MemWrite, MemRead, clock, read_data);
     
+    sc_trace_file *tf = sc_create_vcd_trace_file("MIPS");
+    sc_trace(tf, address, "address");
+    sc_trace(tf, write_data, "write_data");
+    sc_trace(tf, MemWrite, "MemWrite");
+    sc_trace(tf, MemRead, "MemRead");
+    sc_trace(tf, clock, "clock");
+    sc_trace(tf, read_data, "read_data");
+
+    address = "00000000000000000000000000001100";
+    MemRead = SC_LOGIC_1;
+    clock = 1;
+    sc_start(1, SC_NS);
+    cout << "Old Data:" << read_data << endl;
+    MemRead = SC_LOGIC_0;
+
+    sc_start(1, SC_NS);
+    MemWrite = SC_LOGIC_1;
+    write_data = "00000000000000000000000000101101";
+    clock = 0;
+    sc_start(1, SC_NS);
+    clock = 1;
+    MemWrite = SC_LOGIC_0;
+    write_data = "0x00000000";
+
+    MemRead = SC_LOGIC_1;
+    sc_start(1, SC_NS);
+    cout << "New Data:" << read_data << endl;
+    MemRead = SC_LOGIC_0;
+
+
     sc_close_vcd_trace_file(tf);
     return 0;
 }
