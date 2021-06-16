@@ -17,10 +17,10 @@ namespace MIPS{
         void read();
         void write();
 
-        SC_CTOR(data_memory){
-            for(sc_lv<32> entry : data_mem){
-                entry = "0x00000000";
-            }
+        SC_CTOR(data_memory){ 
+            for(int i = 0; i < 32; i++){
+                data_mem[i] = "0x00000000";
+            }           
 
             SC_METHOD(read);
             sensitive << address << MemRead;
