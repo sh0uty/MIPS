@@ -4,6 +4,7 @@
 #include "registers.h"
 #include "adder.h"
 #include "alu_control.h"
+#include "alu.h"
 
 
 int sc_main(int argc, char* argv[]){
@@ -121,8 +122,8 @@ int sc_main(int argc, char* argv[]){
 
         
     /*//Adder Test
-    sc_signal<sc_int<32>> x,y;
-    sc_signal<sc_int<32>> z;
+    sc_signal<sc_lv<32>> x,y;
+    sc_signal<sc_lv<32>> z;
 
     MIPS::adder  *Adder = new MIPS::adder("Adder");
     (*Adder)(x,y,z);
@@ -132,12 +133,12 @@ int sc_main(int argc, char* argv[]){
     sc_trace(tf, y, "y");
     sc_trace(tf, z, "z");
 
-    x = "2147483645";
-    y = "2";
+    x = "00000000000000000000000000000001";
+    y = "11111111111111111111111111111101";
     sc_start(1, SC_NS);
     cout<<z.read()<<endl;*/
 
-    //Alu Control Test
+    /*//Alu Control Test
     sc_signal<sc_lv<6>> function;
     sc_signal<sc_lv<2>> alu_op;
     sc_signal<sc_lv<4>> output;
@@ -153,7 +154,28 @@ int sc_main(int argc, char* argv[]){
     function = "101011";
     alu_op = "11";
     sc_start(1, SC_NS);
-    cout<<output.read()<<endl;
+    cout<<output.read()<<endl;*/
+
+    sc_signal<sc_lv<32>> in_1, in_2;
+    sc_signal<sc_lv<4>> alu_control_func;
+    sc_signal<sc_logic> zero;
+    sc_signal<sc_lv<32>> alu_result;
+
+    MIPS::alu *Alu = new MIPS::alu("Alu");
+    (*Alu)(in_1, in_2, alu_control_func, zero, alu_result);
+
+    sc_trace_file *tf = sc_create_vcd_trace_file("MIPS");  
+    sc_trace(tf, in_1, "in_1");
+    sc_trace(tf, in_2, "in_2");
+    sc_trace(tf, alu_control_func, "alu_control_func");
+    sc_trace(tf, zero, "zero");
+    sc_trace(tf, alu_result, "alu_result");
+
+    in_1 = "00000000000000000000000000000011";
+    in_2 = "00000000000000000000000000000011";
+    alu_control_func = "0011";
+    sc_start(1, SC_NS);
+    cout << zero.read() << " and " << alu_result.read() << endl;
 
     sc_close_vcd_trace_file(tf);
     return 0;
