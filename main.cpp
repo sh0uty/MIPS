@@ -5,6 +5,7 @@
 #include "adder.h"
 #include "alu_control.h"
 #include "alu.h"
+#include "control.h"
 
 
 int sc_main(int argc, char* argv[]){
@@ -156,6 +157,7 @@ int sc_main(int argc, char* argv[]){
     sc_start(1, SC_NS);
     cout<<output.read()<<endl;*/
 
+    /*//Alu Test
     sc_signal<sc_lv<32>> in_1, in_2;
     sc_signal<sc_lv<4>> alu_control_func;
     sc_signal<sc_logic> zero;
@@ -175,8 +177,32 @@ int sc_main(int argc, char* argv[]){
     in_2 = "00000000000000000000000000000011";
     alu_control_func = "0011";
     sc_start(1, SC_NS);
-    cout << zero.read() << " and " << alu_result.read() << endl;
+    cout << zero.read() << " and " << alu_result.read() << endl;*/
+    
+    //Control test
+    sc_signal<sc_lv<6>> opcode;
+    sc_signal<sc_logic> reg_dest, jump, branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write;
+    sc_signal<sc_lv<2>> alu_op;
 
+    MIPS::control *Control = new MIPS::control("Control");
+    (*Control)(opcode, reg_dest, jump, branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write, alu_op);
+
+    sc_trace_file *tf = sc_create_vcd_trace_file("MIPS");
+    sc_trace(tf, opcode, "opcode");
+    sc_trace(tf, reg_dest, "reg_dest");
+    sc_trace(tf, jump, "jump");
+    sc_trace(tf, branch, "branch");
+    sc_trace(tf, mem_read, "mem_read");
+    sc_trace(tf, mem_to_reg, "mem_to_reg");
+    sc_trace(tf, mem_write, "mem_write");
+    sc_trace(tf, alu_src, "alu_src");
+    sc_trace(tf, reg_write, "reg_write");
+    sc_trace(tf, alu_op, "alu_op");
+
+    opcode = "111111";
+    sc_start(1, SC_NS);
+    cout << reg_dest<<jump<<branch<<mem_read<<mem_to_reg<<mem_write<<alu_src<<reg_write<<":"<<alu_op << endl;
+    
     sc_close_vcd_trace_file(tf);
     return 0;
 }
