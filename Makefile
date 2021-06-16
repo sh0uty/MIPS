@@ -4,7 +4,7 @@ LIBS = -L/usr/local/systemc/lib-linux64
 LIBFLAGS = -lm -lsystemc
 
 TARGET = MIPS
-OBJ = alu_control.o adder.o registers.o shifter.o sign_extend.o main.o
+OBJ = alu.o alu_control.o adder.o registers.o shifter.o sign_extend.o main.o
 
 $(TARGET): $(OBJ)
 	@echo "Compiling MIPS binary..."
