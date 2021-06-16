@@ -9,14 +9,14 @@ namespace MIPS{
 
         sc_in<sc_lv<6>> function;
         sc_in<sc_lv<2>> alu_op;
-        sc_out<sc_lv<4>> alu_control_funct;
+        sc_out<sc_lv<4>> alu_control_func;
 
         sc_lv<4> and_op = "0000";
         sc_lv<4> or_op = "0001";
         sc_lv<4> add = "0010";
         sc_lv<4> subtract_not_equal = "0011";
         sc_lv<4> subtract = "0110";
-        sc_lv<4> set_on_less_than = "0111";;
+        sc_lv<4> set_on_less_than = "0111";
         
         void control();
 
