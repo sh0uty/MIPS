@@ -19,10 +19,10 @@ namespace MIPS{
         sc_lv<4> subtract = "0110";
         sc_lv<4> set_on_less_than = "0111";
 
-        void doMagic();
+        void compute();
 
         SC_CTOR(alu){
-            SC_METHOD(doMagic);
+            SC_METHOD(compute);
             sensitive << in_1, in_2, alu_control_func;
         }
 
