@@ -1,0 +1,8 @@
+Sign Extender : finished
+Shifter	      : finished
+
+
+
+
+Registers     : writing finished (working only when all values are initialized) | reading NOT tested
+	- Remove Debug Messaged
