@@ -2,6 +2,8 @@
 #include "shifter.h"
 #include "sign_extend.h"
 #include "registers.h"
+#include "adder.h"
+#include "alu_control.h"
 
 
 int sc_main(int argc, char* argv[]){
@@ -70,15 +72,16 @@ int sc_main(int argc, char* argv[]){
     return 0;
 */
 
-    sc_signal<bool> clk;
+    /*sc_signal<bool> clk;
     sc_signal<sc_logic> reg_write;
     sc_signal<sc_lv<5>> read_reg_1, read_reg_2, write_reg;
     sc_signal<sc_lv<32>> write_data, read_data_1, read_data_2;
 
     MIPS::registers *Registers = new MIPS::registers("Registers");
-    (*Registers)(clk, reg_write, read_reg_1, read_reg_2, write_reg, write_data, read_data_1, read_data_2);
+    (*Registers)(clk, reg_write, read_reg_1, read_reg_2, write_reg, write_data, read_data_1, read_data_2);*/
 
-    sc_trace_file *tf = sc_create_vcd_trace_file("MIPS");    
+
+/*    sc_trace_file *tf = sc_create_vcd_trace_file("MIPS");    
     sc_trace(tf, clk, "clk");
     sc_trace(tf, reg_write, "reg_write");
     sc_trace(tf, read_reg_1, "read_reg_1");
@@ -86,9 +89,9 @@ int sc_main(int argc, char* argv[]){
     sc_trace(tf, write_reg, "write_reg");
     sc_trace(tf, write_data, "write_data");
     sc_trace(tf, read_data_1, "read_data_1");
-    sc_trace(tf, read_data_2, "read_data_2");
+    sc_trace(tf, read_data_2, "read_data_2");*/
 
-    clk = 0;
+    /*clk = 0;
     reg_write = SC_LOGIC_0;
     read_reg_1 = "00000";
     read_reg_2 = "00000";
@@ -113,7 +116,44 @@ int sc_main(int argc, char* argv[]){
     sc_start(1, SC_NS);
 
 
-    Registers->debugRegisters();
+    Registers->debugRegisters();*/
+
+
+        
+    /*//Adder Test
+    sc_signal<sc_int<32>> x,y;
+    sc_signal<sc_int<32>> z;
+
+    MIPS::adder  *Adder = new MIPS::adder("Adder");
+    (*Adder)(x,y,z);
+
+    sc_trace_file *tf = sc_create_vcd_trace_file("MIPS");   
+    sc_trace(tf, x, "x");
+    sc_trace(tf, y, "y");
+    sc_trace(tf, z, "z");
+
+    x = "2147483645";
+    y = "2";
+    sc_start(1, SC_NS);
+    cout<<z.read()<<endl;*/
+
+    //Alu Control Test
+    sc_signal<sc_lv<6>> function;
+    sc_signal<sc_lv<2>> alu_op;
+    sc_signal<sc_lv<4>> output;
+
+    MIPS::alu_control *AluControl = new MIPS::alu_control("AluControl");
+    (*AluControl)(function, alu_op, output);
+
+    sc_trace_file *tf = sc_create_vcd_trace_file("MIPS");  
+    sc_trace(tf, function, "function");
+    sc_trace(tf, alu_op, "alu_op");
+    sc_trace(tf, output, "output");
+
+    function = "101011";
+    alu_op = "11";
+    sc_start(1, SC_NS);
+    cout<<output.read()<<endl;
 
     sc_close_vcd_trace_file(tf);
     return 0;
