@@ -1,10 +1,10 @@
 CC = g++
-INCLUDES = -I. -I/usr/local/systemc233/include
-LIBS = -L/usr/local/systemc233/lib-linux64
+INCLUDES = -I. -I/usr/local/systemc/include
+LIBS = -L/usr/local/systemc/lib-linux64
 LIBFLAGS = -lm -lsystemc
 
 TARGET = MIPS
-OBJ = registers.o shifter.o sign_extend.o main.o
+OBJ = alu_control.o adder.o registers.o shifter.o sign_extend.o main.o
 
 $(TARGET): $(OBJ)
 	@echo "Compiling MIPS binary..."

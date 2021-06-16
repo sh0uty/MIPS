@@ -1,7 +1,8 @@
 Sign Extender : finished
 Shifter	      : finished
 
-
+Adder         : finished
+Alu Control   : finished
 
 
 Registers     : writing finished (working only when all values are initialized) | reading NOT tested
