@@ -7,8 +7,8 @@ namespace MIPS{
 
     SC_MODULE(adder){
 
-        sc_in<sc_int<32>> x,y;
-        sc_out<sc_int<32>> z;
+        sc_in<sc_lv<32>> x,y;
+        sc_out<sc_lv<32>> z;
 
         void add();
 
