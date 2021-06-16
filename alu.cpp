@@ -1,6 +1,6 @@
 #include "alu.h"
 
-void MIPS::alu::doMagic(){
+void MIPS::alu::compute(){
     sc_uint<32> temp_1, temp_2;
     sc_lv<4> temp_control;
 
