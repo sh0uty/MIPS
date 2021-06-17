@@ -18,7 +18,7 @@ namespace MIPS {
 
         SC_CTOR(pc){
 
-            address = "00000000000000000000000000000000"
+            address = "00000000000000000000000000000000";
 
             SC_METHOD(load_address);
             sensitive << clk.pos() << clk.neg();

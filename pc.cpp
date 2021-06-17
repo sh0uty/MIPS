@@ -8,6 +8,6 @@ void MIPS::pc::load_address(){
 
 void MIPS::pc::save_address(){
 
-    address = address_to_load.readd();
+    address = address_to_load.read();
 
 }
