@@ -1,6 +1,7 @@
 Sign Extender : finished
 Shifter	      : finished
 PC            : finished but not tested
+mux	      : finised
 
 Adder         : finished
 Alu Control   : finished

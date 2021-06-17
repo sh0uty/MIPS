@@ -2,7 +2,8 @@
 #include "shifter.h"
 #include "sign_extend.h"
 #include "registers.h"
-
+#include "pc.h"
+#include "mux.h"
 
 int sc_main(int argc, char* argv[]){
 /* //Shifter Test
@@ -70,6 +71,7 @@ int sc_main(int argc, char* argv[]){
     return 0;
 */
 
+/* //Register Test
     sc_signal<bool> clk;
     sc_signal<sc_logic> reg_write;
     sc_signal<sc_lv<5>> read_reg_1, read_reg_2, write_reg;
@@ -114,6 +116,33 @@ int sc_main(int argc, char* argv[]){
 
 
     Registers->debugRegisters();
+
+    sc_close_vcd_trace_file(tf);
+    return 0;
+
+    */
+
+   sc_signal<sc_lv<32>> x, y, z;
+   sc_signal<sc_logic> s;
+
+    MIPS::mux *Mux = new MIPS::mux("Mux");
+    (*Mux)(x, y, s, z);
+
+    sc_trace_file *tf = sc_create_vcd_trace_file("MIPS");
+    sc_trace(tf, x, "x");
+    sc_trace(tf, y, "y");
+    sc_trace(tf, s, "s");
+    sc_trace(tf, z, "z");
+
+    x = "0001";
+    y = "1000";
+    s = SC_LOGIC_0;
+
+    sc_start(1, SC_NS);
+
+    s = SC_LOGIC_1;
+
+    sc_start(1, SC_NS);
 
     sc_close_vcd_trace_file(tf);
     return 0;
