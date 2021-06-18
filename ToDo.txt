@@ -2,6 +2,7 @@ Sign Extender : finished
 Shifter	      : finished
 PC            : finished but not tested
 mux	      : finised
+instruction_memory : (Ka ob es funktioniert ist einfach Bullshit) | ??finished?? but not tested
 
 Adder         : finished
 Alu Control   : finished

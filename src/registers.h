@@ -21,7 +21,7 @@ namespace MIPS{
         int test[2];
         SC_CTOR(registers){
 
-            //Not sure
+            // ? Not sure
             for(auto& reg : reg_mem)
                 reg = "0000000000000000000000000000000000";
 
