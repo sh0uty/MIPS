@@ -18,7 +18,7 @@ namespace MIPS{
         void debugRegisters();
 
         sc_lv<32> reg_mem[32];
-        int test[2];
+
         SC_CTOR(registers){
 
             // ? Not sure
@@ -26,6 +26,7 @@ namespace MIPS{
                 reg = "0000000000000000000000000000000000";
 
             SC_METHOD(read);
+            sensitive << read_reg_1 << read_reg_2;
 
             SC_METHOD(write);
             sensitive << clk.neg();

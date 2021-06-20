@@ -15,6 +15,7 @@ namespace MIPS{
 
         SC_CTOR(mux){
             SC_METHOD(set);
+            sensitive << x << y << s;
         };
     };
 

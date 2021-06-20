@@ -14,6 +14,7 @@ namespace MIPS{
 
         SC_CTOR(shifter){
             SC_METHOD(shift_left);
+            sensitive << x;
         };
 
     };

@@ -11,5 +11,4 @@ Control		  : finished
 Data Memory   : finished
 
 
-Registers     : writing finished (working only when all values are initialized) | reading NOT tested
-	- Remove Debug Messaged
+Registers     : finished (working only when all values are initialized)

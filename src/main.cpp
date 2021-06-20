@@ -4,8 +4,16 @@
 #include "registers.h"
 #include "pc.h"
 #include "mux.h"
+#include "instruction_memory.h"
+#include "LOG.h"
+
+LogStruct LogConfig = {};
 
 int sc_main(int argc, char* argv[]){
+
+    LogConfig.headers = true;
+    LogConfig.level = INFO;
+
 /* //Shifter Test
     sc_signal<sc_lv<32>> x;
     sc_signal<sc_lv<32>> y;
@@ -96,10 +104,6 @@ int sc_main(int argc, char* argv[]){
     read_reg_2 = "00000";
     write_reg = "00000";
     write_data = "00000000000000000000000000000000";
-    read_data_1 = "00000000000000000000000000000000";
-    read_data_2 = "00000000000000000000000000000000";
-
-    Registers->debugRegisters();
 
     sc_start(1, SC_NS);
 
@@ -114,14 +118,31 @@ int sc_main(int argc, char* argv[]){
 
     sc_start(1, SC_NS);
 
+    clk = 1;
+
+    sc_start(1, SC_NS);
+
+    reg_write = SC_LOGIC_1;
+    write_reg = "00001";
+    write_data = "00111111111111111111111111111111";
+    clk = 0;
+
+    sc_start(1, SC_NS);
+
+    Registers->debugRegisters();
+
+    read_reg_1 = "00010";
+    read_reg_2 = "00001";
+
+    sc_start(1, SC_NS);
 
     Registers->debugRegisters();
 
     sc_close_vcd_trace_file(tf);
     return 0;
+*/
 
-    */
-
+/* // Mux Test
    sc_signal<sc_lv<32>> x, y, z;
    sc_signal<sc_logic> s;
 
@@ -146,4 +167,7 @@ int sc_main(int argc, char* argv[]){
 
     sc_close_vcd_trace_file(tf);
     return 0;
+*/
+
+
 }

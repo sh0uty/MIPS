@@ -11,7 +11,6 @@ void MIPS::registers::write(){
         return;
 
     reg_mem[write_reg.read().to_uint()] = write_data.read();
-    cout << "Writing REG " << write_reg.read() << " with value " << write_data.read() << endl;
 }
 
 void MIPS::registers::debugRegisters(){
@@ -23,5 +22,7 @@ void MIPS::registers::debugRegisters(){
             cout << "REG " << i << " - " << reg_mem[i] << endl;
         }
     }
-
+    cout << "READ 1 REG at " << read_reg_1.read() << " - " << read_data_1.read() << endl;
+    cout << "READ 2 REG at " << read_reg_2.read() << " - " << read_data_2.read() << endl;
+    cout << endl;
 }

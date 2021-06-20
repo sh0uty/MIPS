@@ -14,6 +14,7 @@ namespace MIPS {
 
         SC_CTOR(sign_extend){
             SC_METHOD(extend);
+            sensitive << x;
         };
 
     };
