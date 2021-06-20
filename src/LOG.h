@@ -41,7 +41,7 @@ public:
     LOG(LogType type){
         msglevel = type;
         if(LogConfig.headers)
-            operator << ("["+getLabel(type)+"]");
+            operator << ("["+getLabel(type)+"] ");
     }
     ~LOG(){
         if(opened)

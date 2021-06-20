@@ -5,6 +5,8 @@
 #include <fstream>
 #include <string>
 
+#include "LOG.h"
+
 namespace MIPS{
 
     // ! Not Tested

@@ -12,9 +12,9 @@ void MIPS::instruction_memory::read_file(){
 
             for(int i = 0; i < 32; i++){
 
-                data_mem[index][32-i] = line[i];                
-
+                data_mem[index][31-i] = line[i];                
             }
+            LOG(INFO) << data_mem[index];
             index++;
         }
         if(index > 0){

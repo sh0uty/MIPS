@@ -168,6 +168,7 @@ int sc_main(int argc, char* argv[]){
     sc_close_vcd_trace_file(tf);
     return 0;
 */
+/* // PC (Program Counter) Test
     sc_signal<bool> clk;
     sc_signal<sc_lv<32>> address_to_load, current_address;
 
@@ -194,6 +195,28 @@ int sc_main(int argc, char* argv[]){
 
     sc_close_vcd_trace_file(tf);
     return 0;
+*/
+
+/* // Instruction Memory Test
+    sc_signal<sc_lv<32>> read_address, instruction, last_instr_address; 
+
+    MIPS::instruction_memory *IM = new MIPS::instruction_memory("IM");
+    (*IM)(read_address, instruction, last_instr_address);
+
+    sc_trace_file *tf = sc_create_vcd_trace_file("MIPS");
+    sc_trace(tf, read_address, "read");
+    sc_trace(tf, instruction, "instruction");
+    sc_trace(tf, last_instr_address, "last");
+
+    read_address = "100";
+
+    sc_start(1, SC_NS);
+
+    sc_close_vcd_trace_file(tf);
+    return 0;
+
+    */
+
 
 
 }
