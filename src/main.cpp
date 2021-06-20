@@ -168,6 +168,32 @@ int sc_main(int argc, char* argv[]){
     sc_close_vcd_trace_file(tf);
     return 0;
 */
+    sc_signal<bool> clk;
+    sc_signal<sc_lv<32>> address_to_load, current_address;
+
+    MIPS::pc *PC = new MIPS::pc("PC");
+    (*PC)(clk, address_to_load, current_address);
+
+    sc_trace_file *tf = sc_create_vcd_trace_file("MIPS");
+    sc_trace(tf, clk, "clk");
+    sc_trace(tf, address_to_load, "load");
+    sc_trace(tf, current_address, "current");
+
+    address_to_load = "1101";
+    clk = 0;
+
+    sc_start(1, SC_NS);
+
+    clk = 1;
+
+    sc_start(1, SC_NS);
+
+    clk = 0;
+
+    sc_start(1, SC_NS);
+
+    sc_close_vcd_trace_file(tf);
+    return 0;
 
 
 }
