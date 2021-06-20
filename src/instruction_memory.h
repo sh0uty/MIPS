@@ -31,7 +31,6 @@ namespace MIPS{
             sensitive << read_address;
 
             SC_METHOD(set_instruction);
-            sensitive << read_address;
         };
 
     };

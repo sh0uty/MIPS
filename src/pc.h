@@ -21,6 +21,7 @@ namespace MIPS {
             address = "00000000000000000000000000000000";
 
             SC_METHOD(load_address);
+            // ! Not sure
             sensitive << clk.pos() << clk.neg();
 
             SC_METHOD(save_address);

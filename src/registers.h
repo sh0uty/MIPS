@@ -26,7 +26,6 @@ namespace MIPS{
                 reg = "0000000000000000000000000000000000";
 
             SC_METHOD(read);
-            sensitive << read_reg_1 << read_reg_2;
 
             SC_METHOD(write);
             sensitive << clk.neg();

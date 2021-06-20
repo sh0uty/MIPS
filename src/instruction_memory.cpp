@@ -29,6 +29,6 @@ void MIPS::instruction_memory::read_file(){
 
 void MIPS::instruction_memory::set_instruction(){
 
-    instruction.write(data_mem[read_address.read().to_uint()]);
+    instruction.write(data_mem[read_address.read().range(31, 2).to_uint()]);
 
 }
