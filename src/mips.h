@@ -10,6 +10,7 @@ namespace MIPS {
 
         void set_clock();
         void run();
+        void convert_instruction();
 
         SC_CTOR(MIPS){
             SC_METHOD(set_clock);
@@ -17,9 +18,15 @@ namespace MIPS {
 
             SC_METHOD(run);
             sensitive << clk.pos();
+
+            SC_METHOD(convert_instruction);
+            sensitive << instruction;
         }
 
-        sc_lv<32> instr_address, next_address, instruction,
+        sc_signal<sc_lv<32>> instruction{0};
+
+/*
+        sc_signal<sc_lv<32>> instr_address, next_address, instruction,
               read_data_1 = "00000000000000000000000000000000",
               read_data_2 = "00000000000000000000000000000000",
               write_data = "00000000000000000000000000000000",
@@ -33,16 +40,16 @@ namespace MIPS {
               mux4_result = "00000000000000000000000000000000",
               concatenated_pc_and_jump_address = "00000000000000000000000000000000",
               mem_read_data = "00000000000000000000000000000000";
-
-        sc_lv<28> shifted_jump_address;
-        sc_lv<26> jump_address;
-        sc_lv<16> immediate;
-        sc_lv<6> oppcode, funct;
-        sc_lv<5> rs, rt, rd, shampt, write_reg;
-        sc_lv<4> alu_control_fuct;
-        sc_logic reg_dest = SC_LOGIC_0, jump = SC_LOGIC_0, branch = SC_LOGIC_0, mem_read = SC_LOGIC_0, 
-                mem_to_reg = SC_LOGIC_0, mem_write = SC_LOGIC_0, alu_src = SC_LOGIC_0,
-                reg_write = SC_LOGIC_0, alu_zero = SC_LOGIC_0, branch_and_alu_zero = SC_LOGIC_0;
+*/
+        sc_signal<sc_lv<28>> shifted_jump_address;
+        sc_signal<sc_lv<26>> jump_address;
+        sc_signal<sc_lv<16>> immediate;
+        sc_signal<sc_lv<6>> oppcode, funct;
+        sc_signal<sc_lv<5>> rs, rt, rd, shampt, write_reg;
+        sc_signal<sc_lv<4>> alu_control_fuct;
+        sc_signal<sc_logic> reg_dest {0}, jump {0}, branch {0}, mem_read {0}, 
+                mem_to_reg {0}, mem_write {0}, alu_src {0},
+                reg_write {0}, alu_zero {0}, branch_and_alu_zero {0};
 
         enum STATE{
             LOADING,
@@ -50,7 +57,7 @@ namespace MIPS {
             DONE
         };
         STATE s = LOADING;
-        
+
         sc_logic en = SC_LOGIC_0;   
 
         //*-----------------------------------------------------------------------------------------------//
