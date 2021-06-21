@@ -89,7 +89,7 @@ namespace MIPS {
             control *CONTROL1 = new control("CONTROL1");
             (*CONTROL1)(opcode, reg_dest, jump, branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write, alu_op);
 
-            mux<5> *MUX1 = new mux<5>("MUX1");
+            mux *MUX1 = new mux("MUX1");
             (*MUX1)(rt, rd, reg_dest, write_reg);
 
             registers *REG = new registers("REG");
@@ -101,13 +101,13 @@ namespace MIPS {
             sign_extend *SGN_EXT = new sign_extend("SGN_EXT");
             (*SGN_EXT)(immediate, extended_immediate);
 
-            mux<32> *MUX2 = new mux<32>("MUX2");
+            mux *MUX2 = new mux("MUX2");
             (*MUX2)(read_data_2, extended_immediate, alu_src, alu_in_2);
 
             alu *ALU1 = new alu("ALU1");
             (*ALU1)(read_data_1, alu_in_2, alu_control_fuct, alu_zero, alu_result);
 
-            mux<32> *MUX3 = new mux<32>("MUX3");
+            mux *MUX3 = new mux("MUX3");
             (*MUX3)(alu_result, mem_read_data, mem_to_reg, write_data);
 
             shifter *SHIFT1 = new shifter("SHIFT1");
@@ -123,7 +123,7 @@ namespace MIPS {
 
             // ! IMPORTANT ORDER
 
-            mux<32> *MUX4 = new mux<32>("MUX4");
+            mux *MUX4 = new mux("MUX4");
             (*MUX4)(incremented_address, add2_result, branch_and_alu_zero, mux4_result);
 
             adder *ADD2 = new adder("ADD2");
@@ -137,7 +137,7 @@ namespace MIPS {
 
             // ! IMPORTANT ORDER
 
-            mux<32> *MUX5 = new mux<32>("MUX5");
+            mux *MUX5 = new mux("MUX5");
             (*MUX5)(mux4_result, concatenated_pc_and_jump_address, jump, next_address);
 
             data_memory *MEM = new data_memory("MEM");
