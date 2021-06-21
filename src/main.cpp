@@ -1,11 +1,7 @@
 #include "systemc.h"
-#include "shifter.h"
-#include "sign_extend.h"
-#include "registers.h"
-#include "pc.h"
-#include "mux.h"
-#include "instruction_memory.h"
+
 #include "LOG.h"
+#include "mips.h"
 
 LogStruct LogConfig = {};
 
@@ -13,6 +9,21 @@ int sc_main(int argc, char* argv[]){
 
     LogConfig.headers = true;
     LogConfig.level = INFO;
+
+    sc_signal<bool> clk;
+
+    MIPS::MIPS *mips = new MIPS::MIPS("mips");
+    (*mips)(clk);
+
+    for(int i = 0; i < 32; i++){
+        clk = 0;
+        sc_start(5, SC_NS);
+        clk = 1;
+        sc_start(5, SC_NS);
+
+    }
+    
+    return 0;
 
 /* //Shifter Test
     sc_signal<sc_lv<32>> x;
