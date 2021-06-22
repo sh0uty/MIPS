@@ -5,11 +5,13 @@
 
 namespace MIPS{
 
-    SC_MODULE(mux){
+    template<class T>
+    class mux : public sc_module{
+        public:
 
-        sc_in<sc_lv<32>> x, y;
+        sc_in<T> x, y;
         sc_in<sc_logic> s;
-        sc_out<sc_lv<32>> z;
+        sc_out<T> z;
 
         void set();
 

@@ -2,17 +2,19 @@
 
 void MIPS::instruction_memory::read_file(){
 
+    LOG(INFO) << "IM start";
+
     ifstream stream("instructions.txt");
 
     if(stream.is_open()){
 
-        int index = 0;
+        int index = 1;
 
         for(std::string line; getline(stream, line); ){
 
-            for(int i = 0; i < 32; i++){
+            for(int i = 1; i < 32; i++){
 
-                data_mem[index][31-i] = line[i];                
+                data_mem[index][32-i] = line[i];                
             }
             LOG(INFO) << data_mem[index];
             index++;
@@ -28,7 +30,6 @@ void MIPS::instruction_memory::read_file(){
 }
 
 void MIPS::instruction_memory::set_instruction(){
-
+    LOG(INFO) << "IM read @" << read_address.read() << " -> " << data_mem[read_address.read().to_uint()];
     instruction.write(data_mem[read_address.read().range(31, 2).to_uint()]);
-
 }

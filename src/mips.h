@@ -24,38 +24,35 @@ namespace MIPS {
     SC_MODULE(MIPS){
         sc_in_clk clk;
 
-        void set_clock();
-        void run();
-        void convert_instruction();
-        void set_branch_and_alu_zero();
-        void set_pc_and_jump_address();
 
-        sc_signal<sc_lv<32>> instr_address, next_address, instruction;
+        sc_signal<sc_lv<32>> instr_address{"instruction", 0b0}, next_address{"next_address", 0b0}, instruction{"instruction", 0b0};
 
-        sc_signal<sc_lv<32>> read_data_1 {0},
-              read_data_2 {0},
-              write_data {0},
-              extended_immediate {0},
-              shifted_immediate {0},
-              alu_in_2 {0},
-              alu_result {0},
-              last_instr_address {0},
-              incremented_address {0},
-              add2_result {0},
-              mux4_result {0},
-              concatenated_pc_and_jump_address {0},
-              mem_read_data {0};
+        sc_signal<sc_lv<32>> read_data_1{"read_data_1", 0b0},
+              read_data_2{"read_data_2", 0b0},
+              write_data{"write_data", 0b0},
+              extended_immediate{"extended_immediate", 0b0},
+              shifted_immediate{"shifted_immediate", 0b0},
+              alu_in_2{"alu_in_2", 0b0},
+              alu_result{"alu_result", 0b0},
+              last_instr_address{"last_instr_address", 0b0},
+              incremented_address{"incremented_address", 0b0},
+              add2_result{"add2_result", 0b0},
+              mux4_result{"mux4_result", 0b0},
+              concatenated_pc_and_jump_address{"cpaja", 0b0},
+              mem_read_data{"mem_read_data", 0b0};
 
-        sc_signal<sc_lv<28>> shifted_jump_address;
-        sc_signal<sc_lv<26>> jump_address;
-        sc_signal<sc_lv<16>> immediate;
-        sc_signal<sc_lv<6>> opcode, funct;
-        sc_signal<sc_lv<5>> rs, rt, rd, shampt, write_reg;
-        sc_signal<sc_lv<4>> alu_control_fuct;
-        sc_signal<sc_lv<2>> alu_op;
-        sc_signal<sc_logic> reg_dest {0}, jump {0}, branch {0}, mem_read {0}, 
-                mem_to_reg {0}, mem_write {0}, alu_src {0},
-                reg_write {0}, alu_zero {0}, branch_and_alu_zero {0};
+        sc_signal<sc_lv<28>> shifted_jump_address{"shifted_jump_address", 0b0};
+        sc_signal<sc_lv<26>> jump_address{"jump_address", 0b0};
+        sc_signal<sc_lv<16>> immediate{"immediate", 0b0};
+        sc_signal<sc_lv<6>> opcode{"opcode", 0b0}, funct{"funct", 0b0};
+        sc_signal<sc_lv<5>> rs{"rs", 0b0}, rt{"rt", 0b0}, rd{"rd", 0b0}, shampt{"shampt", 0b0}, write_reg{"write_reg", 0b0};
+        sc_signal<sc_lv<4>> alu_control_fuct{"alu_control_funct", 0b0};
+        sc_signal<sc_lv<2>> alu_op{"alu_op", 0b0};
+        sc_signal<sc_logic> reg_dest , jump , branch , mem_read , 
+                mem_to_reg , mem_write , alu_src ,
+                reg_write , alu_zero , branch_and_alu_zero;
+
+        sc_signal<sc_lv<32>> hard_code{"hard_code", 0b00000000000000000000000000000100};
 
         enum STATE{
             LOADING,
@@ -64,87 +61,65 @@ namespace MIPS {
         };
         STATE s = LOADING;
 
-        sc_signal<bool> en {0};   
+        sc_signal<bool> en  ;   
+
+        pc *Prog_Count;
+        instruction_memory *IM;
+        control *CONTROL1;
+        mux<sc_lv<5>> *MUX1;
+        registers *REG;
+        alu_control *ALU_CONTRL;
+        sign_extend *SGN_EXT;
+        mux<sc_lv<32>> *MUX2;
+        alu *ALU1;
+        mux<sc_lv<32>> *MUX3;
+        shifter<sc_lv<32>, sc_lv<32>> *SHIFT1;
+        adder *ADD1;
+        mux<sc_lv<32>> *MUX4;
+        adder *ADD2;
+        shifter<sc_lv<26>, sc_lv<28>> *SHIFT2; 
+        mux<sc_lv<32>> *MUX5;
+        data_memory *MEM;
 
         //*-----------------------------------------------------------------------------------------------//
 
         SC_CTOR(MIPS){
+            init();
+
+            LOG(INFO) << "Initialized Modules";
+
             SC_METHOD(set_clock);
             sensitive << clk;
 
-            SC_METHOD(run);
-            sensitive << clk.pos();
+            LOG(INFO) << "Set clock";
+
+//            SC_METHOD(run);
+//          sensitive << clk.pos();
+
+            LOG(INFO) << "Set run";
 
             SC_METHOD(convert_instruction);
             sensitive << instruction;
 
-            // ! IMPORTANT ORDER
-
-            pc *Prog_Count = new pc("Prog_Count");
-            (*Prog_Count)(en, next_address, instr_address);
-
-            instruction_memory *IM = new instruction_memory("IM");
-            (*IM)(instr_address, instruction, last_instr_address);
-
-            control *CONTROL1 = new control("CONTROL1");
-            (*CONTROL1)(opcode, reg_dest, jump, branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write, alu_op);
-
-            mux *MUX1 = new mux("MUX1");
-            (*MUX1)(rt, rd, reg_dest, write_reg);
-
-            registers *REG = new registers("REG");
-            (*REG)(en, reg_write, rs, rt, write_reg, write_data, read_data_1, read_data_2);
-
-            alu_control *ALU_CONTRL = new alu_control("ALU_CONTRL");
-            (*ALU_CONTRL)(funct, alu_op, alu_control_fuct);    
-
-            sign_extend *SGN_EXT = new sign_extend("SGN_EXT");
-            (*SGN_EXT)(immediate, extended_immediate);
-
-            mux *MUX2 = new mux("MUX2");
-            (*MUX2)(read_data_2, extended_immediate, alu_src, alu_in_2);
-
-            alu *ALU1 = new alu("ALU1");
-            (*ALU1)(read_data_1, alu_in_2, alu_control_fuct, alu_zero, alu_result);
-
-            mux *MUX3 = new mux("MUX3");
-            (*MUX3)(alu_result, mem_read_data, mem_to_reg, write_data);
-
-            shifter *SHIFT1 = new shifter("SHIFT1");
-            (*SHIFT1)(extended_immediate, shifted_immediate);
-
-            sc_signal<sc_lv<32>> hard_code;
-            hard_code.write("00000000000000000000000000000100");
-            adder *ADD1 = new adder("ADD1");
-            (*ADD1)(instr_address, hard_code, incremented_address);
+            LOG(INFO) << "Set instruction";
 
             SC_METHOD(set_branch_and_alu_zero);
             sensitive << branch << alu_zero;
-
-            // ! IMPORTANT ORDER
-
-            mux *MUX4 = new mux("MUX4");
-            (*MUX4)(incremented_address, add2_result, branch_and_alu_zero, mux4_result);
-
-            adder *ADD2 = new adder("ADD2");
-            (*ADD2)(incremented_address, shifted_immediate, add2_result);
-
-            shifter *SHIFT2 = new shifter("SHIFT2");
-            (*SHIFT2)(jump_address, shifted_jump_address);
+            
+            LOG(INFO) << "Set branch and alu zero";
 
             SC_METHOD(set_pc_and_jump_address);
             sensitive << incremented_address << shifted_jump_address;
-
-            // ! IMPORTANT ORDER
-
-            mux *MUX5 = new mux("MUX5");
-            (*MUX5)(mux4_result, concatenated_pc_and_jump_address, jump, next_address);
-
-            data_memory *MEM = new data_memory("MEM");
-            (*MEM)(alu_result, read_data_2, mem_write, mem_read, en, mem_read_data);
+        
+            LOG(INFO) << "Set pc and jump address";
         }
 
-
+        void init();
+        void set_clock();
+        void run();
+        void convert_instruction();
+        void set_branch_and_alu_zero();
+        void set_pc_and_jump_address();
 
 
     };

@@ -30,7 +30,7 @@ namespace MIPS{
 
 
             SC_METHOD(read_file);
-            sensitive << read_address;
+            //sensitive << read_address;
 
             SC_METHOD(set_instruction);
             sensitive << read_address;

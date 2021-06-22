@@ -12,15 +12,19 @@ int sc_main(int argc, char* argv[]){
 
     sc_signal<bool> clk;
 
-    MIPS::MIPS *mips = new MIPS::MIPS("mips");
-    (*mips)(clk);
+    MIPS::MIPS mips("mips");
+    mips.clk(clk);
 
-    for(int i = 0; i < 32; i++){
+    for(int i = 0; i < 10; i++){
         clk = 0;
-        sc_start(5, SC_NS);
-        clk = 1;
-        sc_start(5, SC_NS);
+        sc_start(100, SC_NS);
 
+        LOG(INFO) << "MAIN CYCLE: " << i;
+
+        clk = 1;
+        sc_start(100, SC_NS);
+
+        LOG(INFO) << "MAIN CYCLE: " << i+1;
     }
     
     return 0;

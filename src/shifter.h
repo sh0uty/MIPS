@@ -4,11 +4,12 @@
 #include "systemc.h"
 
 namespace MIPS{
+    template<class T, class U>
+    class shifter : public sc_module{
+    public:
 
-    SC_MODULE(shifter){
-
-        sc_in<sc_lv<32>> x;
-        sc_out<sc_lv<32>> y;
+        sc_in<T> x;
+        sc_out<U> y;
         
         void shift_left();
 
