@@ -5,10 +5,10 @@ void MIPS::sign_extend::extend(){
     sc_lv<32> temp;
 
     if(x.read()[15] == "1"){
-        cout << "Sign Bit is 1" << endl;
+        LOG(INFO) << "Sign_Extend sign Bit is 1";
         temp.range(31, 16) = "1111111111111111";
     }else{
-        cout << "Sign Bit was 0" << endl;
+        LOG(INFO) << "Sign_Extend sign Bit was 0";
         temp.range(31, 16) = "0000000000000000";
     }
 
