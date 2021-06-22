@@ -15,17 +15,21 @@ int sc_main(int argc, char* argv[]){
     MIPS::MIPS mips("mips");
     mips.clk(clk);
 
-    for(int i = 0; i < 10; i++){
-        clk = 0;
-        sc_start(100, SC_NS);
+    int cycle = 0;
 
-        LOG(INFO) << "MAIN CYCLE: " << i;
+    for(int i = 0; i < 6; i++){
+        
+        clk = 0;
+
+        LOG(INFO) << "MAIN CYCLE: " << ++cycle;
+        sc_start(100, SC_NS);
 
         clk = 1;
-        sc_start(100, SC_NS);
 
-        LOG(INFO) << "MAIN CYCLE: " << i+1;
+        LOG(INFO) << "MAIN CYCLE: " << ++cycle;
+        sc_start(100, SC_NS);
     }
+
 
     return 0;
 

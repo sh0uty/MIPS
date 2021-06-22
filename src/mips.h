@@ -25,7 +25,7 @@ namespace MIPS {
         sc_in_clk clk;
 
 
-        sc_signal<sc_lv<32>> instr_address{"instruction", 0b0}, next_address{"next_address", 0b0}, instruction{"instruction", 0b0};
+        sc_signal<sc_lv<32>> instr_address{"instr_address", 0b0}, next_address{"next_address", 0b0}, instruction{"instruction", 0b0};
 
         sc_signal<sc_lv<32>> read_data_1{"read_data_1", 0b0},
               read_data_2{"read_data_2", 0b0},
@@ -38,7 +38,7 @@ namespace MIPS {
               incremented_address{"incremented_address", 0b0},
               add2_result{"add2_result", 0b0},
               mux4_result{"mux4_result", 0b0},
-              concatenated_pc_and_jump_address{"cpaja", 0b0},
+              concatenated_pc_and_jump_address{"concatenated_pc_and_jump_address", 0b0},
               mem_read_data{"mem_read_data", 0b0};
 
         sc_signal<sc_lv<28>> shifted_jump_address{"shifted_jump_address", 0b0};
@@ -48,9 +48,9 @@ namespace MIPS {
         sc_signal<sc_lv<5>> rs{"rs", 0b0}, rt{"rt", 0b0}, rd{"rd", 0b0}, shampt{"shampt", 0b0}, write_reg{"write_reg", 0b0};
         sc_signal<sc_lv<4>> alu_control_fuct{"alu_control_funct", 0b0};
         sc_signal<sc_lv<2>> alu_op{"alu_op", 0b0};
-        sc_signal<sc_logic> reg_dest , jump , branch , mem_read , 
-                mem_to_reg , mem_write , alu_src ,
-                reg_write , alu_zero , branch_and_alu_zero;
+        sc_signal<sc_logic> reg_dest{"reg_dest", SC_LOGIC_0}, jump{"jump", SC_LOGIC_0}, branch{"branch", SC_LOGIC_0}, mem_read{"mem_read", SC_LOGIC_0}, 
+                mem_to_reg{"mem_to_reg", SC_LOGIC_0}, mem_write{"mem_write", SC_LOGIC_0}, alu_src{"alu_src", SC_LOGIC_0},
+                reg_write{"reg_write", SC_LOGIC_0}, alu_zero{"alu_zero", SC_LOGIC_0}, branch_and_alu_zero{"branch_and_alu_zero", SC_LOGIC_0};
 
         sc_signal<sc_lv<32>> hard_code{"hard_code", 0b00000000000000000000000000000100};
 
@@ -61,7 +61,7 @@ namespace MIPS {
         };
         STATE s = LOADING;
 
-        sc_signal<bool> en  ;   
+        sc_signal<bool> en{"en", 0};   
 
         pc *Prog_Count;
         instruction_memory *IM;

@@ -32,5 +32,5 @@ void MIPS::instruction_memory::read_file(){
 void MIPS::instruction_memory::set_instruction(){
     LOG(INFO) << "IM read @" << read_address.read().range(31, 2).to_uint() << " -> " << data_mem[read_address.read().range(31, 2).to_uint()];
     instruction.write(data_mem[read_address.read().range(31, 2).to_uint()]);
-    LOG(INFO) << "IM instruction written with " << instruction.read();
+    LOG(INFO) << "New instruction.read() " << instruction.read();
 }

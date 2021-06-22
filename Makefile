@@ -15,10 +15,12 @@ SOURCES := $(wildcard $(SRCDIR)/*.cpp)
 OBJECTS := $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 $(BINDIR)/$(TARGET): $(OBJECTS)
+	mkdir -p bin
 	@echo "Linking MIPS binary..."
 	@$(CC) $(OBJECTS) $(INCLUDES) $(LIBS) -o $@ $(LIBFLAGS) -static
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
+	mkdir -p obj
 	@echo "Compiling MIPS::$^ object file"
 	$(CC) $(INCLUDES) -c $^ -o $@
 

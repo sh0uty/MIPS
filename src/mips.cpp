@@ -112,13 +112,12 @@ void MIPS::MIPS::convert_instruction(){
     funct.write(instruction.read().range(5, 0));
     immediate.write(instruction.read().range(15, 0));
     jump_address.write(instruction.read().range(25, 0));
-
 }
 
 void MIPS::MIPS::set_branch_and_alu_zero(){
 
     branch_and_alu_zero.write(branch.read() & alu_zero.read());
-
+    LOG(INFO) << "MIPS branch and alu zero: " << (branch.read() & alu_zero.read());
 }
 
 void MIPS::MIPS::set_pc_and_jump_address(){
