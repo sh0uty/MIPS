@@ -26,7 +26,7 @@ int sc_main(int argc, char* argv[]){
 
         LOG(INFO) << "MAIN CYCLE: " << i+1;
     }
-    
+
     return 0;
 
 /* //Shifter Test

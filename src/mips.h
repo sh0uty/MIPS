@@ -93,11 +93,6 @@ namespace MIPS {
 
             LOG(INFO) << "Set clock";
 
-//            SC_METHOD(run);
-//          sensitive << clk.pos();
-
-            LOG(INFO) << "Set run";
-
             SC_METHOD(convert_instruction);
             sensitive << instruction;
 
@@ -116,7 +111,6 @@ namespace MIPS {
 
         void init();
         void set_clock();
-        void run();
         void convert_instruction();
         void set_branch_and_alu_zero();
         void set_pc_and_jump_address();

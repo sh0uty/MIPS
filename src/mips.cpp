@@ -100,11 +100,6 @@ void MIPS::MIPS::set_clock(){
 
 }
 
-void MIPS::MIPS::run(){
-
-   
-}
-
 void MIPS::MIPS::convert_instruction(){
 
     LOG(INFO) << "MIPS instruction is: " << instruction.read();
@@ -128,9 +123,10 @@ void MIPS::MIPS::set_branch_and_alu_zero(){
 
 void MIPS::MIPS::set_pc_and_jump_address(){
 
-    sc_lv<32> temp{0};
+    sc_lv<32> temp{0b0};
     temp.range(31, 28) = incremented_address.read().range(31, 28);
     temp.range(27, 0) = shifted_jump_address.read().range(27, 0);
     concatenated_pc_and_jump_address.write(temp);
+    LOG(INFO) << "MIPS set_pc_and_jump_address " << temp;
 
 }
