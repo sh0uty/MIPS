@@ -12,7 +12,7 @@ namespace MIPS{
         sc_in_clk clock;
         sc_out<sc_lv<32>> read_data;
 
-        sc_signal<sc_lv<32>> data_mem[32];
+        sc_lv<32> data_mem[32];
 
         void read();
         void write();
@@ -23,9 +23,11 @@ namespace MIPS{
             }           
 
             SC_METHOD(read);
+            dont_initialize();
             sensitive << address << MemRead;
 
             SC_METHOD(write);
+            dont_initialize();
             sensitive << address << write_data << clock.neg();
         }
 

@@ -3,6 +3,8 @@
 
 #include "systemc.h"
 
+#include "LOG.h"
+
 namespace MIPS{
 
     SC_MODULE(adder){
@@ -14,6 +16,7 @@ namespace MIPS{
 
         SC_CTOR(adder){
             SC_METHOD(add);
+            //dont_initialize();
             sensitive << x,y;
         }
 

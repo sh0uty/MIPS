@@ -3,6 +3,8 @@
 
 #include "systemc.h"
 
+#include "LOG.h"
+
 namespace MIPS{
 
     SC_MODULE(control){
@@ -15,6 +17,7 @@ namespace MIPS{
 
         SC_CTOR(control){
             SC_METHOD(assign);
+            dont_initialize();
             sensitive << opcode;
         }
 

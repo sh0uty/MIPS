@@ -1,6 +1,8 @@
 #include "registers.h"
 
 void MIPS::registers::read(){
+    LOG(INFO) << "REG READ1 @" << read_reg_1.read().to_uint() << " -> " << reg_mem[read_reg_1.read().to_uint()];
+    LOG(INFO) << "REG READ2 @" << read_reg_2.read().to_uint() << " -> " << reg_mem[read_reg_2.read().to_uint()];
     read_data_1.write(reg_mem[read_reg_1.read().to_uint()]);
     read_data_2.write(reg_mem[read_reg_2.read().to_uint()]);
 }
@@ -11,6 +13,7 @@ void MIPS::registers::write(){
         return;
 
     reg_mem[write_reg.read().to_uint()] = write_data.read();
+    LOG(INFO) << "REG WRITE @" << write_reg.read().to_uint() << " -> " << write_data.read();
 }
 
 void MIPS::registers::debugRegisters(){

@@ -3,6 +3,8 @@
 
 #include "systemc.h"
 
+#include "LOG.h"
+
 namespace MIPS{
     template<class T, class U>
     class shifter : public sc_module{
@@ -15,6 +17,7 @@ namespace MIPS{
 
         SC_CTOR(shifter){
             SC_METHOD(shift_left);
+            dont_initialize();
             sensitive << x;
         };
 

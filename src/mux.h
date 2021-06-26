@@ -3,6 +3,8 @@
 
 #include "systemc.h"
 
+#include "LOG.h"
+
 namespace MIPS{
 
     template<class T>
@@ -17,6 +19,7 @@ namespace MIPS{
 
         SC_CTOR(mux){
             SC_METHOD(set);
+            dont_initialize();
             sensitive << x << y << s;
         };
     };

@@ -8,6 +8,8 @@ void MIPS::alu::compute(){
     temp_2 = in_2.read().to_uint();
     temp_control = alu_control_func.read();
 
+    LOG(INFO) << "ALU: " << temp_1 << " " << temp_2 << " " << temp_control;
+
     if(temp_control==add){
         alu_result.write(temp_1 + temp_2);
     }
@@ -21,10 +23,10 @@ void MIPS::alu::compute(){
         alu_result.write(temp_1 | temp_2);
     }
     else if(temp_control==set_on_less_than && temp_1 < temp_2){
-        alu_result.write("0x00000001");
+        alu_result.write("00000000000000000000000000000001");
     }
     else if(temp_control==set_on_less_than){
-        alu_result.write("0x00000000");
+        alu_result.write("00000000000000000000000000000000");
     }
 
     if(temp_1 != temp_2 && temp_control==subtract_not_equal){

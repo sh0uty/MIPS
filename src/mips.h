@@ -89,21 +89,25 @@ namespace MIPS {
             LOG(INFO) << "Initialized Modules";
 
             SC_METHOD(set_clock);
+            //dont_initialize();
             sensitive << clk;
 
             LOG(INFO) << "Set clock";
 
             SC_METHOD(convert_instruction);
+            dont_initialize();
             sensitive << instruction;
 
             LOG(INFO) << "Set instruction";
 
             SC_METHOD(set_branch_and_alu_zero);
+            dont_initialize();
             sensitive << branch << alu_zero;
             
             LOG(INFO) << "Set branch and alu zero";
 
             SC_METHOD(set_pc_and_jump_address);
+            dont_initialize();
             sensitive << incremented_address << shifted_jump_address;
         
             LOG(INFO) << "Set pc and jump address";

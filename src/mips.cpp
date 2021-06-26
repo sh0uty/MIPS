@@ -60,18 +60,16 @@ void MIPS::MIPS::init(){
 }
 
 void MIPS::MIPS::set_clock(){
-
     switch (s)
     {
     case RUNNING:
-        en.write(clk.read());
+        en = clk.read();
         break;
     
     default:
         en = 0;
         break;
     }
-    LOG(INFO) << "Set clock to: " << clk.read();
 
     if(clk.read() == 1){
 
@@ -94,9 +92,9 @@ void MIPS::MIPS::set_clock(){
             default:
                 break;
             }
-            LOG(INFO) << "State is now: " << s; 
-
     }
+    LOG(INFO) << "State is now: " << s; 
+
 
 }
 
@@ -126,6 +124,6 @@ void MIPS::MIPS::set_pc_and_jump_address(){
     temp.range(31, 28) = incremented_address.read().range(31, 28);
     temp.range(27, 0) = shifted_jump_address.read().range(27, 0);
     concatenated_pc_and_jump_address.write(temp);
-    LOG(INFO) << "MIPS set_pc_and_jump_address " << temp;
+    LOG(INFO) << "MIPS set_pc_and_jump_address " << incremented_address.read().range(31, 28) << " + " << shifted_jump_address.read().range(27, 0) << " = "<< temp;
 
 }

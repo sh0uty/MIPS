@@ -3,6 +3,8 @@
 
 #include "systemc.h"
 
+#include "LOG.h"
+
 namespace MIPS{
 
     SC_MODULE(alu){
@@ -23,6 +25,7 @@ namespace MIPS{
 
         SC_CTOR(alu){
             SC_METHOD(compute);
+            dont_initialize();
             sensitive << in_1, in_2, alu_control_func;
         }
 

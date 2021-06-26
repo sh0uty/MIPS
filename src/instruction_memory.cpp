@@ -21,6 +21,7 @@ void MIPS::instruction_memory::read_file(){
         }
         if(index > 0){
             last_instr_address.write((index-1)*4);
+            LOG(INFO) << "IM Last instruction address - " << ((index-1)*4);
         }
         else
             last_instr_address.write("00000000000000000000000000000000");
@@ -30,7 +31,6 @@ void MIPS::instruction_memory::read_file(){
 }
 
 void MIPS::instruction_memory::set_instruction(){
-    LOG(INFO) << "IM read @" << read_address.read().range(31, 2).to_uint() << " -> " << data_mem[read_address.read().range(31, 2).to_uint()];
-    instruction.write(data_mem[read_address.read().range(31, 2).to_uint()]);
-    LOG(INFO) << "New instruction.read() " << instruction.read();
+        LOG(INFO) << "IM read @" << read_address.read().range(31, 2).to_uint() << " -> " << data_mem[read_address.read().range(31, 2).to_uint()];
+        instruction.write(data_mem[read_address.read().range(31, 2).to_uint()]);
 }

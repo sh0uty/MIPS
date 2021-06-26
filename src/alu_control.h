@@ -22,6 +22,7 @@ namespace MIPS{
 
         SC_CTOR(alu_control){
             SC_METHOD(control);
+            dont_initialize();
             sensitive << function, alu_op;
         }
 

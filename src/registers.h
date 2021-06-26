@@ -3,6 +3,8 @@
 
 #include "systemc.h"
 
+#include "LOG.h"
+
 namespace MIPS{
 
     SC_MODULE(registers){
@@ -26,9 +28,11 @@ namespace MIPS{
                 reg = "0000000000000000000000000000000000";
 
             SC_METHOD(read);
+            dont_initialize();
             sensitive << read_reg_1 << read_reg_2;
 
             SC_METHOD(write);
+            dont_initialize();
             sensitive << clk.neg();
 
         };

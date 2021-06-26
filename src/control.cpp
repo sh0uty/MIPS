@@ -1,6 +1,7 @@
 #include "control.h"
 
 void MIPS::control::assign(){
+    LOG(INFO) << "CONTROL opcode: " << opcode.read().to_uint();
     switch (opcode.read().to_uint())
     {   
         //R-types 000000
