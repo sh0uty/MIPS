@@ -28,9 +28,7 @@ namespace MIPS{
             for(auto& data : data_mem)
                 data = "00000000000000000000000000000000";
 
-
             SC_METHOD(read_file);
-            //sensitive << read_address;
 
             SC_METHOD(set_instruction);
             sensitive << read_address;

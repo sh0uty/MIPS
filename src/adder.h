@@ -16,7 +16,7 @@ namespace MIPS{
 
         SC_CTOR(adder){
             SC_METHOD(add);
-            //dont_initialize();
+            dont_initialize();
             sensitive << x,y;
         }
 

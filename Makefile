@@ -19,10 +19,16 @@ $(BINDIR)/$(TARGET): $(OBJECTS)
 	@echo "Linking MIPS binary..."
 	@$(CC) $(OBJECTS) $(INCLUDES) $(LIBS) -o $@ $(LIBFLAGS) -static
 
-$(OBJDIR)/%.o : $(SRCDIR)/%.cpp
+$(OBJDIR)/%.o : $(SRCDIR)/%.cpp $(SRCDIR)/%.h
 	mkdir -p obj
-	@echo "Compiling MIPS::$^ object file"
-	$(CC) $(INCLUDES) -c $^ -o $@
+	@echo "Compiling MIPS::$< object file"
+	$(CC) $(INCLUDES) -c $< -o $@
+
+$(OBJDIR)/main.o : $(SRCDIR)/main.cpp
+	mkdir -p obj
+	@echo "Compiling MIPS::$< object file"
+	$(CC) $(INCLUDES) -c $< -o $@
+
 
 .PHONY: clean
 clean:

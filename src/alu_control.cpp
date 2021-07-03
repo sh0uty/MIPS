@@ -1,6 +1,9 @@
 #include "alu_control.h"
 
 void MIPS::alu_control::control(){
+
+    LOG(INFO) << "ALU_CONTROL funct - " << function.read();
+
     if(alu_op.read()=="00" || (alu_op.read()=="10" && function.read()=="100000")){
         alu_control_func.write(add);
     }

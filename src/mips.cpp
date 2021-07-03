@@ -4,9 +4,6 @@ void MIPS::MIPS::init(){
 
     LOG(INFO) << "MIPS init:start";
 
-    Prog_Count = new pc("Prog_Count");
-    (*Prog_Count)(en, next_address, instr_address);
-
     IM = new instruction_memory("IM");
     (*IM)(instr_address, instruction, last_instr_address);
 
@@ -55,6 +52,9 @@ void MIPS::MIPS::init(){
     MEM = new data_memory("MEM");
     (*MEM)(alu_result, read_data_2, mem_write, mem_read, en, mem_read_data);
 
+    Prog_Count = new pc("Prog_Count");
+    (*Prog_Count)(en, next_address, instr_address);
+
     LOG(INFO) << "MIPS init:end";
     
 }
@@ -64,10 +64,12 @@ void MIPS::MIPS::set_clock(){
     {
     case RUNNING:
         en = clk.read();
+        LOG(INFO) << "Clock dm read" << clk.read();
         break;
     
     default:
         en = 0;
+        LOG(INFO) << "Clock 0 dm";
         break;
     }
 
@@ -83,6 +85,7 @@ void MIPS::MIPS::set_clock(){
                 if (instr_address.read().to_uint() > last_instr_address.read().to_uint()){
                     s = DONE;
                     en = 0;
+                    LOG(INFO) << "Clock m 0";
                 }
                 break;
 
@@ -94,7 +97,6 @@ void MIPS::MIPS::set_clock(){
             }
     }
     LOG(INFO) << "State is now: " << s; 
-
 
 }
 

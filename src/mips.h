@@ -25,9 +25,9 @@ namespace MIPS {
         sc_in_clk clk;
 
 
-        sc_signal<sc_lv<32>> instr_address{"instr_address", 0b0}, next_address{"next_address", 0b0}, instruction{"instruction", 0b0};
+        sc_buffer<sc_lv<32>> instr_address{"instr_address", 0b0}, next_address{"next_address", 0b0}, instruction{"instruction", 0b0};
 
-        sc_signal<sc_lv<32>> read_data_1{"read_data_1", 0b0},
+        sc_buffer<sc_lv<32>> read_data_1{"read_data_1", 0b0},
               read_data_2{"read_data_2", 0b0},
               write_data{"write_data", 0b0},
               extended_immediate{"extended_immediate", 0b0},
@@ -41,18 +41,18 @@ namespace MIPS {
               concatenated_pc_and_jump_address{"concatenated_pc_and_jump_address", 0b0},
               mem_read_data{"mem_read_data", 0b0};
 
-        sc_signal<sc_lv<28>> shifted_jump_address{"shifted_jump_address", 0b0};
-        sc_signal<sc_lv<26>> jump_address{"jump_address", 0b0};
-        sc_signal<sc_lv<16>> immediate{"immediate", 0b0};
-        sc_signal<sc_lv<6>> opcode{"opcode", 0b0}, funct{"funct", 0b0};
-        sc_signal<sc_lv<5>> rs{"rs", 0b0}, rt{"rt", 0b0}, rd{"rd", 0b0}, shampt{"shampt", 0b0}, write_reg{"write_reg", 0b0};
-        sc_signal<sc_lv<4>> alu_control_fuct{"alu_control_funct", 0b0};
-        sc_signal<sc_lv<2>> alu_op{"alu_op", 0b0};
-        sc_signal<sc_logic> reg_dest{"reg_dest", SC_LOGIC_0}, jump{"jump", SC_LOGIC_0}, branch{"branch", SC_LOGIC_0}, mem_read{"mem_read", SC_LOGIC_0}, 
+        sc_buffer<sc_lv<28>> shifted_jump_address{"shifted_jump_address", 0b0};
+        sc_buffer<sc_lv<26>> jump_address{"jump_address", 0b0};
+        sc_buffer<sc_lv<16>> immediate{"immediate", 0b0};
+        sc_buffer<sc_lv<6>> opcode{"opcode", 0b0}, funct{"funct", 0b0};
+        sc_buffer<sc_lv<5>> rs{"rs", 0b0}, rt{"rt", 0b0}, rd{"rd", 0b0}, shampt{"shampt", 0b0}, write_reg{"write_reg", 0b0};
+        sc_buffer<sc_lv<4>> alu_control_fuct{"alu_control_funct", 0b0};
+        sc_buffer<sc_lv<2>> alu_op{"alu_op", 0b0};
+        sc_buffer<sc_logic> reg_dest{"reg_dest", SC_LOGIC_0}, jump{"jump", SC_LOGIC_0}, branch{"branch", SC_LOGIC_0}, mem_read{"mem_read", SC_LOGIC_0}, 
                 mem_to_reg{"mem_to_reg", SC_LOGIC_0}, mem_write{"mem_write", SC_LOGIC_0}, alu_src{"alu_src", SC_LOGIC_0},
                 reg_write{"reg_write", SC_LOGIC_0}, alu_zero{"alu_zero", SC_LOGIC_0}, branch_and_alu_zero{"branch_and_alu_zero", SC_LOGIC_0};
 
-        sc_signal<sc_lv<32>> hard_code{"hard_code", 0b00000000000000000000000000000100};
+        sc_buffer<sc_lv<32>> hard_code{"hard_code", 0b00000000000000000000000000000100};
 
         enum STATE{
             LOADING,
@@ -61,7 +61,7 @@ namespace MIPS {
         };
         STATE s = LOADING;
 
-        sc_signal<bool> en{"en", 0};   
+        sc_buffer<bool> en{"en", 0};   
 
         pc *Prog_Count;
         instruction_memory *IM;
@@ -84,12 +84,12 @@ namespace MIPS {
         //*-----------------------------------------------------------------------------------------------//
 
         SC_CTOR(MIPS){
-            init();
 
+            init();
             LOG(INFO) << "Initialized Modules";
 
             SC_METHOD(set_clock);
-            //dont_initialize();
+            dont_initialize();
             sensitive << clk;
 
             LOG(INFO) << "Set clock";

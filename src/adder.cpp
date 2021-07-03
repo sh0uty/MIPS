@@ -5,7 +5,7 @@ void MIPS::adder::add(){
 
     temp = x.read().to_uint() + y.read().to_uint();
 
-    LOG(INFO) << "ADDER " << x << " + " << y << " = " << temp;
+    LOG(INFO) << "ADDER - " << this->name() << " - " << x << " + " << y << " = " << temp;
 
     z.write(temp);
 }
