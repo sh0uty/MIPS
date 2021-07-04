@@ -61,7 +61,7 @@ namespace MIPS {
         };
         STATE s = LOADING;
 
-        sc_buffer<bool> en{"en", 0};   
+        sc_signal<bool> en{"en", 0};   
 
         pc *Prog_Count;
         instruction_memory *IM;

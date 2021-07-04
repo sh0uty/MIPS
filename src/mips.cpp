@@ -64,7 +64,7 @@ void MIPS::MIPS::set_clock(){
     {
     case RUNNING:
         en = clk.read();
-        LOG(INFO) << "Clock dm read" << clk.read();
+        LOG(INFO) << "Clock dm read " << clk.read();
         break;
     
     default:
