@@ -15,12 +15,14 @@ int sc_main(int argc, char* argv[]){
     MIPS::MIPS mips("mips");
     mips.clk(clk);
 
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < 7; i++){
         
         clk = 0;
+        //LOG(WARN) << "Simulation " << (i+1) << " with clock: " << clk;
         sc_start(1, SC_NS);
         
         clk = 1;
+        //LOG(WARN) << "Simulation " << (i+1) << " with clock: " << clk;
         sc_start(1, SC_NS);
     }
 

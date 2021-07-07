@@ -4,6 +4,9 @@ void MIPS::MIPS::init(){
 
     LOG(INFO) << "MIPS init:start";
 
+    Prog_Count = new pc("Prog_Count");
+    (*Prog_Count)(en, next_address, instr_address);
+
     IM = new instruction_memory("IM");
     (*IM)(instr_address, instruction, last_instr_address);
 
@@ -51,9 +54,6 @@ void MIPS::MIPS::init(){
 
     MEM = new data_memory("MEM");
     (*MEM)(alu_result, read_data_2, mem_write, mem_read, en, mem_read_data);
-
-    Prog_Count = new pc("Prog_Count");
-    (*Prog_Count)(en, next_address, instr_address);
 
     LOG(INFO) << "MIPS init:end";
     
