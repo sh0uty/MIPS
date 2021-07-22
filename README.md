@@ -27,5 +27,5 @@ make remove
 Wenn mehr als die jetzigen drei instructions in der instructions.txt hinzugefügt werden, muss nach Bedarf die for-Schleife in der main.cpp verlängert werden.
 > Am besten auf:
 ```C++
-for(int i = 0; i < (Anzahl Instructions + 1); i++)
+for(int i = 0; i < ((2 * Anzahl Instructions) + 1) ; i++)
 ```
