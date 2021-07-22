@@ -4,6 +4,8 @@ Vereinfachter MIPS-Emulator mit SystemC v2.3.3 von Lukas Stolz und Luke Bocker
 
 ## Usage
 
+Zuallererst, muss der richtige Pfad in der Makefile zu dem SystemC Ordern angepasst werden.
+***
 > Um das Programm zu kompilieren:
 ```bash
 make
